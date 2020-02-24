@@ -29,7 +29,7 @@ length =4
 //      3     6      9         12
     */
 
-function diagonalDifference(arr) {
+function diagonalDifference(arr) { //rt = 0(n), sp= O +2 ?
     // Write your code here
     /*for(let i =0; i<arr.length; i++){
       diagA.push(arr[0]+arr[4]+arr[8])
