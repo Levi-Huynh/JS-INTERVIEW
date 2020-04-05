@@ -1,0 +1,2 @@
+-merge all open PRs on forked Repos to master PR (all commits should be on master)
+-WHEN GENerate token, displayed to screen never see it again
