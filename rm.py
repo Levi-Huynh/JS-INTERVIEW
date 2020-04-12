@@ -57,8 +57,9 @@ player.current_room = world.starting_room
 visited_rooms.add(player.current_room)
 
 for move in traversal_path:
-    player.travel(move)
-    # basically a path that visits each room, easy
+    player.travel(move)  # TEST TRAVERSES THROUGH DIRECTION IN TRAVEL-PATH LIST
+
+    # ADDS CURR.PLAYER.ROOM TO VISITED ROOMS (WE DONT NEED TO DO, JUST ADD TO TRAV-PATH DIRECTION)
     visited_rooms.add(player.current_room)
 
 if len(visited_rooms) == len(room_graph):
@@ -115,17 +116,17 @@ def dft(start_room, visited):
         path = q.dequeue() 
         room = path[-1]
 
-        if room not in visited:
-            for ele in path:
+        if room not in visited_rooms:
+            for ele in path: #loops elems in path
                 setDir[ele] : "?"
                 visited_room[room] = setDir 
-        if visited_room[room] == "?":
+                if visited_room[room] == "?":
                 roomList= travel(path)
                 # room id => #direction 
-                # room id list needs to be appended to be added to visit_rooms
+                # room id list shows rooms by order of travel 
                 # add to visited rooms 
-                # [n,s, w, e]
-                dirList = explore1()
+                
+                dirList = explore1()   # [n,s, w, e]
                 newPath = [*path]
                 newPath.append(e)
                 q.enqueue(newPath)
