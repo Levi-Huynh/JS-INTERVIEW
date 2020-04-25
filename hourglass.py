@@ -12,7 +12,7 @@ def hourglassSum(arr):
         for i in range(0, (len(arr)-3)):
             # starts over, for each new hour glass
             hour_sum = 0
-            hour_sum += arr[i][j] + arr[i][j+1]+arr[i][j+2] + \
+            hour_sum += arr[i][j] + arr[i][j+1]+arr[i][j+2] + 
                 arr[i+1][j+1] + arr[i+2][j]+arr[i+2][j+1] + arr[i+2][j+2]
             result1.append(hour_sum)
             result[i+j] = hour_sum
