@@ -107,14 +107,14 @@ class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         
         
-        #given 2 LL 
-        #each node is int, written in reverse order
-        #read in reverse each LL 
-        #add the 2 LL (one total num) 
+        # given 2 LL 
+        # each node is int, written in reverse order
+        # read in reverse each LL 
+        # add the 2 LL (one total num) 
         
-        #return sum as a LL
-            #create a LL with sum answer
-            #reverse the LL 
+        # return sum as a LL
+            # create a LL with sum answer
+            # reverse the LL 
             
         num1=[]
         num2=[]
@@ -128,47 +128,71 @@ class Solution:
                 num2.append(curr2.val)
             curr1 = curr1.next
             curr2 = curr2.next
-        #reverse & convert to 1 num
+        # reverse & convert to 1 num
         rev1=num1[::-1]
         rev2=num2[::-1]
-        #string
+        # string
         n1= [str(i) for i in rev1]
         n2 =[str(i) for i in rev2]
-        #join 
+        # join 
         num_1 = int("".join(n1))
         num_2= int("".join(n2))
         
         new_sum = str(num_1 + num_2)
-        #reverse new sum
-        #split new_sum into single nums
+        # reverse new sum
+        # split new_sum into single nums
         new_sum = list(new_sum[::-1])
        
-        #turn list into ints
+        # turn list into ints
         for i in range(len(new_sum)):
-            #instead of creating new array
+            # instead of creating new array
             new_sum[i] = int(new_sum[i])
         
         print(f"new_sum {(new_sum)}")
         
-        #return LL with nodes in order of 7-0-8
+        # return LL with nodes in order of 7-0-8
         new_LL = ListNode(-1)
         curr = new_LL
-        #print(f"CURR {curr}")
-        #add ele of new_sum to new_LL tree as nodes
+        # print(f"CURR {curr}")
+        # add ele of new_sum to new_LL tree as nodes
         track =0
         
         while track < len(new_sum):
             for i in range(0, len(new_sum)):
                 print(f"ele: {new_sum[i]}")
                                
-                #curr= ListNode(new_sum[i])
+                # curr= ListNode(new_sum[i])
                 curr.next=  ListNode(new_sum[i])
                 print(f"c ={curr}")
                 track+=1
                 curr=curr.next 
         
        
-        #get rid of dummyhead
+        # get rid of dummyhead
         new_LL=new_LL.next
         return new_LL
         
+        def binarySearch (arr, l, r, x): 
+  
+    # Check base case 
+    if r >= l: 
+  
+        mid = l + (r - l) // 2
+  
+        # If element is present at the middle itself 
+        if arr[mid] == x: 
+            return mid 
+          
+        # If element is smaller than mid, then it  
+        # can only be present in left subarray 
+        elif arr[mid] > x: 
+            return binarySearch(arr, l, mid-1, x) 
+  
+        # Else the element can only be present  
+        # in right subarray 
+        else: 
+            return binarySearch(arr, mid + 1, r, x) 
+  
+    else: 
+        # Element is not present in the array 
+        return -1
