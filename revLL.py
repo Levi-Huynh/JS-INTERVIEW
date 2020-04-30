@@ -172,3 +172,58 @@ class Solution:
         new_LL=new_LL.next
         return new_LL
         
+        def binarySearch (arr, l, r, x): 
+  
+    # Check base case 
+    if r >= l: 
+  
+        mid = l + (r - l) // 2
+  
+        # If element is present at the middle itself 
+        if arr[mid] == x: 
+            return mid 
+          
+        # If element is smaller than mid, then it  
+        # can only be present in left subarray 
+        elif arr[mid] > x: 
+            return binarySearch(arr, l, mid-1, x) 
+  
+        # Else the element can only be present  
+        # in right subarray 
+        else: 
+            return binarySearch(arr, mid + 1, r, x) 
+  
+    else: 
+        # Element is not present in the array 
+        return -1
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+      
+        print(f"Root {root}")
+        def create_dict(root, my_dict):
+            if root.left:
+                
+                create_dict( root.left, my_dict)
+            
+            my_dict[root.val] = [root.left, root.right]
+           
+           
+            if root.right:
+        
+                create_dict( root.right, my_dict)
+        
+            print(f"DICT {my_dict}")
+        
+        #if leaves on left, finish listingthe 2 child of R element
+        #list the 2 chid of the left leaf first
+        #list 2 child of right leaf on Left section 
+       
+        my_dict ={}
+        create_dict(root, my_dict)
+        child_n= [p,q]
+        for k in my_dict:
+            if all(elem in child_n for elem.val in my_dict[k]):
+                print(f"k {k}")
+                return k
+            
