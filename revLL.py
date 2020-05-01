@@ -227,3 +227,23 @@ class Solution:
                 print(f"k {k}")
                 return k
             
+            
+            
+            class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        #iterate through ...
+        #do some logic based on the root val as iterate
+        while root:
+            if max(p.val, q.val) < root.val:
+                #for search move the root left (search smaller), if the MAX of the p&q are < root
+                root = root.left
+            elif min(p.val, q.val) > root.val:
+                #move search to right(search larger) if MIN of p&q are > root 
+                root = root.right
+            else:
+                # if max or min bounds are correctly greater & correctly less than root.value 
+                #than can be ancestor
+                return root
+        return None
+          
+            

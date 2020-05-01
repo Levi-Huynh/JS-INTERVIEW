@@ -102,3 +102,21 @@ test_ancestors = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7),
                   (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
 
 print(earliest_ancestor(test_ancestors, 6))
+
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # iterate through ...
+        # do some logic based on the root val as iterate
+        while root:
+            if max(p.val, q.val) < root.val:
+                # for search move the root left (search smaller), if the MAX of the p&q are < root
+                root = root.left
+            elif min(p.val, q.val) > root.val:
+                # move search to right(search larger) if MIN of p&q are > root
+                root = root.right
+            else:
+                # if max or min bounds are correctly greater & correctly less than root.value
+                # than can be ancestor
+                return root
+        return None
