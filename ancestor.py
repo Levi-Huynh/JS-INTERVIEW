@@ -120,3 +120,42 @@ class Solution:
                 # than can be ancestor
                 return root
         return None
+
+
+class Solution:
+    def preorder(self, root: 'Node') -> List[int]:
+        
+#         stack=[]
+#         stack.append([root])
+#         res=[]
+        
+#         while len(stack) > 0:
+#             path=stack.pop()
+#             v=path[-1]
+#             if v is not None:
+#                 res.append(v.val)
+            
+#             if v and v.children is not None:
+#                 for child in v.children[::-1]:
+#                     path_copy=path.copy()
+#                     path_copy.append(child)
+#                     stack.append(path_copy)
+            
+            
+            
+#         print(f"{res}")
+            
+#         return res
+
+        if not root:
+            return []
+        if not root.children:
+            return [root.val]
+        l=[]
+        #dfs sorts by parent, then child, then next parent in bfs span
+        for child in root.children:
+            l+=self.preorder(child)
+        
+        
+        l.insert(0,root.val)
+        return l
