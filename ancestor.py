@@ -159,3 +159,84 @@ class Solution:
         
         l.insert(0,root.val)
         return l
+
+        class Solution:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        
+        #stack of path for left node & stack of path for right node
+        def findChildren(root):
+            res=[]
+            if root:
+                if root.left:
+                    res.append(root.left)
+                if root.right:
+                    res.append(root.right)
+                if len(res) > 0:
+                    return res
+                else:
+                    return None
+        
+        def dfs(root,res):
+        
+            stack = []
+            stack.append([root])
+        
+            while len(stack) >0:
+                path= stack.pop()
+                
+              
+                res.append(path)
+                v=path[-1]
+        
+                if findChildren(v) is not None:  
+                    for child in findChildren(v):
+                        path_copy=path.copy()
+                        path_copy.append(child)
+                        stack.append(path_copy)
+      
+            return res
+        
+        
+        if root is None: 
+            return 0
+        if root.left is None and root.right is None :
+            return 0
+        
+        resL=[]
+        resR=[]
+        max_lenL=[]
+        max_lenR=[]
+        if root:
+            l=dfs(root.left,resL)
+            r=dfs(root.right, resR)
+        
+        print(f" LEFTl: {l}\n RIGHT: {r} {r[-1]}")
+        
+    
+        if len(l) == 1 and l[-1] == [None]:
+            print("l is none")
+           
+            for i in range(len(r)):
+                max_lenR.append(len(r[i]))
+            return max(max_lenR)
+        
+        elif len(r) == 1 and r[-1] == [None]:
+            print("r is none")
+            
+            for i in range(len(l)):
+                max_lenL.append(len(l[i]))
+            print(f"R is none max: {max(max_lenL)}")
+            return max(max_lenL)
+        
+        elif len(l) >=1 and len(r) >=1:
+            print("equals")
+            for i in range(len(l)):
+                max_lenL.append(len(l[i]))
+            for i in range(len(r)):
+                 max_lenR.append(len(r[i]))
+                    
+            max_len=max(max_lenL) + max(max_lenR)
+            print(f"maxL {max_lenL} maxR {max_lenR}")
+            return max_len
+        
+       
