@@ -124,48 +124,46 @@ class Solution:
 
 class Solution:
     def preorder(self, root: 'Node') -> List[int]:
-        
-#         stack=[]
-#         stack.append([root])
-#         res=[]
-        
-#         while len(stack) > 0:
-#             path=stack.pop()
-#             v=path[-1]
-#             if v is not None:
-#                 res.append(v.val)
-            
-#             if v and v.children is not None:
-#                 for child in v.children[::-1]:
-#                     path_copy=path.copy()
-#                     path_copy.append(child)
-#                     stack.append(path_copy)
-            
-            
-            
-#         print(f"{res}")
-            
-#         return res
+
+        #         stack=[]
+        #         stack.append([root])
+        #         res=[]
+
+        #         while len(stack) > 0:
+        #             path=stack.pop()
+        #             v=path[-1]
+        #             if v is not None:
+        #                 res.append(v.val)
+
+        #             if v and v.children is not None:
+        #                 for child in v.children[::-1]:
+        #                     path_copy=path.copy()
+        #                     path_copy.append(child)
+        #                     stack.append(path_copy)
+
+        #         print(f"{res}")
+
+        #         return res
 
         if not root:
             return []
         if not root.children:
             return [root.val]
-        l=[]
-        #dfs sorts by parent, then child, then next parent in bfs span
+        l = []
+        # dfs sorts by parent, then child, then next parent in bfs span
         for child in root.children:
-            l+=self.preorder(child)
-        
-        
-        l.insert(0,root.val)
+            l += self.preorder(child)
+
+        l.insert(0, root.val)
         return l
 
         class Solution:
+
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
-        
-        #stack of path for left node & stack of path for right node
+
+        # stack of path for left node & stack of path for right node
         def findChildren(root):
-            res=[]
+            res = []
             if root:
                 if root.left:
                     res.append(root.left)
@@ -175,68 +173,138 @@ class Solution:
                     return res
                 else:
                     return None
-        
-        def dfs(root,res):
-        
+
+        def dfs(root, res):
+
             stack = []
             stack.append([root])
-        
-            while len(stack) >0:
-                path= stack.pop()
-                
-              
+
+            while len(stack) > 0:
+                path = stack.pop()
+
                 res.append(path)
-                v=path[-1]
-        
-                if findChildren(v) is not None:  
+                v = path[-1]
+
+                if findChildren(v) is not None:
                     for child in findChildren(v):
-                        path_copy=path.copy()
+                        path_copy = path.copy()
                         path_copy.append(child)
                         stack.append(path_copy)
-      
+
             return res
-        
-        
-        if root is None: 
+
+        if root is None:
             return 0
-        if root.left is None and root.right is None :
+        if root.left is None and root.right is None:
             return 0
-        
-        resL=[]
-        resR=[]
-        max_lenL=[]
-        max_lenR=[]
+
+        resL = []
+        resR = []
+        max_lenL = []
+        max_lenR = []
         if root:
-            l=dfs(root.left,resL)
-            r=dfs(root.right, resR)
-        
+            l = dfs(root.left, resL)
+            r = dfs(root.right, resR)
+
         print(f" LEFTl: {l}\n RIGHT: {r} {r[-1]}")
-        
-    
+
         if len(l) == 1 and l[-1] == [None]:
             print("l is none")
-           
+
             for i in range(len(r)):
                 max_lenR.append(len(r[i]))
             return max(max_lenR)
-        
+
         elif len(r) == 1 and r[-1] == [None]:
             print("r is none")
-            
+
             for i in range(len(l)):
                 max_lenL.append(len(l[i]))
             print(f"R is none max: {max(max_lenL)}")
             return max(max_lenL)
-        
-        elif len(l) >=1 and len(r) >=1:
+
+        elif len(l) >= 1 and len(r) >= 1:
             print("equals")
             for i in range(len(l)):
                 max_lenL.append(len(l[i]))
             for i in range(len(r)):
-                 max_lenR.append(len(r[i]))
-                    
-            max_len=max(max_lenL) + max(max_lenR)
+                max_lenR.append(len(r[i]))
+
+            max_len = max(max_lenL) + max(max_lenR)
             print(f"maxL {max_lenL} maxR {max_lenR}")
             return max_len
+
+        def isValid(self, s: str) -> bool:
+            # Open brackets must be closed by the same type of brackets.
+            # Open brackets must be closed in the correct order.
+        """
+        GIVEN STRING OF CHAR
+        RETURN BOOLEAN IF ABOVE CASES TRUE:
         
-       
+        pLAN
+        #BP
+        #HT 1) count of each open == count of each close
+        #2) all close index after 
+        #3) & close_index- open_index is odd num (should be even pairs of close & open in between, or none inbetween)
+        
+        """
+
+        if s is None:
+            return True
+
+        # HT 1) count of each open == count of each close
+        # store freq of brackets in dict
+        freq = {}
+
+        split = list(s)
+
+        print("S", split)
+        opposites = {'(': ')', ')': '(', '{': '}',
+                     '}': '{', '[': ']', ']': '['}
+
+        indexpos = {}
+
+        for char in split:
+            # index list of all cahars
+            indexpos[char] = [i for i in range(len(split)) if split[i] == char]
+
+        print(f"Indexpos {indexpos}")
+
+        check = {}
+        visited = set()
+
+        for k, v in indexpos.items():
+            if opposites[k] not in indexpos:
+                print()
+                return False
+            if len(indexpos[opposites[k]]) != len(indexpos[k]):
+                print("unequal char count")
+                return False
+
+        for k in indexpos:
+            index_check = []
+            if k not in visited:
+                visited.add(k)
+                visited.add(opposites[k])
+
+                for i in range(len(indexpos[k])):
+                    for j in range(len(indexpos[k])):
+                        index_check.append(
+                            indexpos[opposites[k]][i] - indexpos[k][j])
+            check[k] = index_check
+
+        print("check", check)
+
+        lenC = 0
+        for k, v in check.items():
+            if len(v) == 1:
+                if v[-1] % 2 == 0:
+                    return False
+            elif len(v) > 1:
+                for i in range(len(v)):
+                    if v[i] % 2 != 0:
+                        lenC += 1
+                if lenC != s.count(k):
+                    return False
+
+        return True
