@@ -308,3 +308,73 @@ class Solution:
                     return False
 
         return True
+
+
+class Solution:
+    def findTilt(self, root: TreeNode) -> int:
+        self.Lnodes = []
+        self.Rnodes=[]
+        self.Ltilt ={}
+        self.Rtilt={}
+        self.Lsum=[]
+        self.Rsum=[]
+        
+        rootR = 0
+        rootL=0
+        rootT =0
+        sumT=0
+    
+        
+        def traverseAll(root, stack):
+           
+            if not root:
+                return 0
+            if root.left :
+                #print(f"ROOT:{root.val} L{root.left.val}")
+                traverseAll(root.left,stack)
+             
+            if root.right:        
+                #print(f"ROOT:{root.val} R{root.right.val}")
+                traverseAll(root.right, stack)
+            stack.append(root) 
+            
+               
+        def individTilt(root):
+            store=[]
+            if not root: return 0
+            
+            if root.left:
+                
+               
+                individTilt(root.left)
+            
+            if root.right:
+                self.Rsum.append(root.right.val)
+                individTilt(root.right)
+                
+            store.append(root)
+            return store 
+            #d: {abs(sumL-sumR)},
+            print(f" sumL {self.Lsum} sumR {self.Rsum}")
+            #return abs(sumL-sumR)
+                
+        if not root:
+            return 0
+        
+        traverseAll(root.left, self.Lnodes ) #returns all L Nodes in stack  #THIS NEEDS TO OCCUR FOR ALL SUBPARENT ROOT'S NODES (with root.left & root.right as input)
+        traverseAll(root.right, self.Rnodes) #returns all R nodes in stack
+        #print(f"{self.Lnodes} {self.Rnodes}")
+        
+        
+        
+     
+        
+        while len(self.Lnodes) > 0:
+            vL=self.Lnodes.pop()
+            self.Ltilt[vL]=individTilt(vL)
+            
+        while len(self.Rnodes) > 0:
+            vR = self.Rnodes.pop()
+            self.Rtilt[vR]= individTilt(vR)
+        
+        
